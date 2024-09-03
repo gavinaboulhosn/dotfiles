@@ -1,0 +1,8 @@
+# Ignore zsh cache files
+.zcompdump*
+.zsh_history
+
+# Ignore other common files
+.DS_Store
+*.swp
+*.swo

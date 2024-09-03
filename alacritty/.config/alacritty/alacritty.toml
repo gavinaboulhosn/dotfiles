@@ -1,0 +1,43 @@
+[env]
+TERM = "xterm-256color"
+
+[window]
+decorations = "transparent"
+opacity = 0.95
+dynamic_title = true
+
+[window.padding]
+x = 2
+y = 4
+
+[font]
+size = 14
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[[keyboard.bindings]]
+key = "Back"
+mods = "Command"
+chars = "\u0015"
+
+[[keyboard.bindings]]
+key = "Left"
+mods = "Option"
+chars = "\u001bb"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Option"
+chars = "\u001bf"
+
+[[keyboard.bindings]]
+key = "Left"
+mods = "Command"
+chars = "\u0001"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Command"
+chars = "\u0005"
