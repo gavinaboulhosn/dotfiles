@@ -18,7 +18,6 @@ plugins=(
     zsh-fzf-history-search
     z
     colorize
-    tmux
 )
 
 # Source Oh My Zsh

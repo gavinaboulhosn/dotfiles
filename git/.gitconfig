@@ -12,4 +12,4 @@
 [core]
 	pager = delta
 [push]
-	default = current
+	default = upstream

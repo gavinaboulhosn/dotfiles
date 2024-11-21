@@ -4,13 +4,13 @@ return {
     cmd = 'Copilot',
     event = 'InsertEnter',
     opts = {
-      -- Add any opts here
       suggestion = {
         enabled = true,
         auto_trigger = true,
         debounce = 100,
         keymap = {
-          accept = '<Tab>',
+          -- We'll handle this ourselves in the config
+          accept = false,
         },
       },
       panel = {
@@ -22,73 +22,23 @@ return {
         gitcommit = true,
       },
     },
+    config = function(_, opts)
+      require('copilot').setup(opts)
+
+      -- Get the suggestion module
+      local suggestion = require 'copilot.suggestion'
+
+      -- Replace the default Tab behavior
+      vim.keymap.set('i', '<Tab>', function()
+        if suggestion.is_visible() then
+          suggestion.accept()
+        else
+          -- Forward the original <Tab> keypress
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, false, true), 'n', false)
+        end
+      end, {
+        silent = true,
+      })
+    end,
   },
-  -- 'github/copilot.vim',
-  -- { 'zbirenbaum/copilot.lua', opts = {} },
-  -- {
-  --   'yetone/avante.nvim',
-  --   event = 'VeryLazy',
-  --   lazy = false,
-  --   opts = {
-  --     -- add any opts here
-  --   },
-  --   keys = {
-  --     {
-  --       '<leader>aa',
-  --       function()
-  --         require('avante.api').ask()
-  --       end,
-  --       desc = 'avante: ask',
-  --       mode = { 'n', 'v' },
-  --     },
-  --     {
-  --       '<leader>ar',
-  --       function()
-  --         require('avante.api').refresh()
-  --       end,
-  --       desc = 'avante: refresh',
-  --     },
-  --     {
-  --       '<leader>ae',
-  --       function()
-  --         require('avante.api').edit()
-  --       end,
-  --       desc = 'avante: edit',
-  --       mode = 'v',
-  --     },
-  --   },
-  --   dependencies = {
-  --     'stevearc/dressing.nvim',
-  --     'nvim-lua/plenary.nvim',
-  --     'MunifTanjim/nui.nvim',
-  --     --- The below dependencies are optional,
-  --     'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
-  --     'zbirenbaum/copilot.lua', -- for providers='copilot'
-  --     {
-  --       -- support for image pasting
-  --       'HakonHarnes/img-clip.nvim',
-  --       event = 'VeryLazy',
-  --       opts = {
-  --         -- recommended settings
-  --         default = {
-  --           embed_image_as_base64 = false,
-  --           prompt_for_file_name = false,
-  --           drag_and_drop = {
-  --             insert_mode = true,
-  --           },
-  --           -- required for Windows users
-  --           use_absolute_path = true,
-  --         },
-  --       },
-  --     },
-  --     {
-  --       -- Make sure to setup it properly if you have lazy=true
-  --       'MeanderingProgrammer/render-markdown.nvim',
-  --       opts = {
-  --         file_types = { 'markdown', 'Avante' },
-  --       },
-  --       ft = { 'markdown', 'Avante' },
-  --     },
-  --   },
-  -- },
 }

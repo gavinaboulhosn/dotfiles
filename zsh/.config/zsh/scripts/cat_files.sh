@@ -15,7 +15,7 @@ fi
 # check for directory, then perform cat on all _git_ tracked files in the directory
 # usage: ./cat_files.sh --dir ./path/to/dir
 if [[ "$1" == "--dir" ]]; then
-    git ls-files | rg "$2" | xargs $0
+    git ls-files | rg -v ".(png|jpg|jpeg|gif|svg)" | xargs $0
     exit 0
 fi
 

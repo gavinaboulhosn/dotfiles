@@ -6,4 +6,5 @@ return {
   require 'custom.plugins.oil',
   require 'custom.plugins.lsp',
   require 'custom.plugins.diagnostics',
+  require 'custom.plugins.git',
 }
