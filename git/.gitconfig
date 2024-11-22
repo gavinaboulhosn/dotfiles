@@ -13,3 +13,5 @@
 	pager = delta
 [push]
 	default = upstream
+[http]
+	postBuffer = 524288000

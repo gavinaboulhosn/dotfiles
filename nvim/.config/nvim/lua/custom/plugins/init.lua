@@ -7,4 +7,5 @@ return {
   require 'custom.plugins.lsp',
   require 'custom.plugins.diagnostics',
   require 'custom.plugins.git',
+  require 'custom.plugins.ui',
 }

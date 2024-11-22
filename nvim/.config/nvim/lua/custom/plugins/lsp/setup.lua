@@ -103,6 +103,7 @@ M.setup = function()
           settings = server_config.settings,
           filetypes = server_config.filetypes,
           cmd = server_config.cmd,
+          root_dir = server_config.root_dir,
         }
       end,
     },
@@ -113,7 +114,17 @@ M.setup = function()
       'stylua',
       'eslint_d',
       'jdtls',
+      'swiftlint',
     },
+  }
+
+  -- Set up sourcekit-lsp separately
+  require('lspconfig').sourcekit.setup {
+    cmd = { 'xcrun', 'sourcekit-lsp' },
+    capabilities = capabilities,
+    on_attach = M.on_attach,
+    filetypes = { 'swift', 'objective-c', 'objective-cpp' },
+    root_dir = require('lspconfig.util').root_pattern('Package.swift', '.git', '*.xcodeproj', '*.xcworkspace'),
   }
 end
 

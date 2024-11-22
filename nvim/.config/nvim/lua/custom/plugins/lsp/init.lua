@@ -2,6 +2,7 @@ return {
   -- Copilot and completion plugins
   require 'custom.plugins.lsp.copilot',
   require 'custom.plugins.lsp.completions',
+  require 'custom.plugins.lsp.xcode',
 
   -- Core LSP setup
   {
