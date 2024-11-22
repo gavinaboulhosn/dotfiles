@@ -179,6 +179,7 @@ return {
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
+        { name = 'nvim_lsp' },
         { name = 'buffer' },
         { name = 'cmdline_history' },
       },

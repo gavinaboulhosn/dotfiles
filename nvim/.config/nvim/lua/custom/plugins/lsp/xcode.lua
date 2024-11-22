@@ -36,22 +36,8 @@ return {
     },
     config = function()
       require('xcodebuild').setup {
-        restore_on_start = true,
-        auto_save = true,
-        show_build_output_in_float = true,
-        logs = {
-          auto_show_on_error = true,
-          auto_show_on_run = true,
-          auto_focus = true,
-          auto_close_on_success = true,
-        },
-        tests = {
-          auto_focus = true,
-          auto_run_last = false,
-          auto_close_on_success = {
-            running = true,
-            building = true,
-          },
+        project_manager = {
+          find_xcodeproj = true, -- instead of using configured xcodeproj search for xcodeproj closest to targeted file
         },
       }
 

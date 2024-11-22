@@ -1,9 +1,4 @@
 return {
-  -- Copilot and completion plugins
-  require 'custom.plugins.lsp.copilot',
-  require 'custom.plugins.lsp.completions',
-  require 'custom.plugins.lsp.xcode',
-
   -- Core LSP setup
   {
     'neovim/nvim-lspconfig',
@@ -19,6 +14,11 @@ return {
       require('custom.plugins.lsp.setup').setup()
     end,
   },
+
+  -- Copilot and completion plugins
+  require 'custom.plugins.lsp.copilot',
+  require 'custom.plugins.lsp.completions',
+  require 'custom.plugins.lsp.xcode',
 
   -- TypeScript-specific tools
   {

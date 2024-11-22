@@ -123,8 +123,7 @@ M.setup = function()
     cmd = { 'xcrun', 'sourcekit-lsp' },
     capabilities = capabilities,
     on_attach = M.on_attach,
-    filetypes = { 'swift', 'objective-c', 'objective-cpp' },
-    root_dir = require('lspconfig.util').root_pattern('Package.swift', '.git', '*.xcodeproj', '*.xcworkspace'),
+    root_dir = require('lspconfig.util').root_pattern('buildServer.json', 'Package.swift', '.git'),
   }
 end
 

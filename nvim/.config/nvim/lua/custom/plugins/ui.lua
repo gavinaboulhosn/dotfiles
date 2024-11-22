@@ -129,8 +129,7 @@ return {
     'rcarriga/nvim-notify',
     lazy = false,
     config = function()
-      local notify = require 'notify'
-      notify.setup {
+      require('notify').setup {
         background_colour = '#000000',
         fps = 60,
         icons = {
@@ -140,7 +139,7 @@ return {
           TRACE = '✎',
           WARN = '',
         },
-        level = vim.log.levels.ERROR, -- Only show errors by default
+        -- level = vim.log.levels.ERROR, -- Only show errors by default
         minimum_width = 50,
         render = 'minimal', -- Use minimal render style
         stages = 'fade', -- Less fancy animation
@@ -153,27 +152,7 @@ return {
           return math.floor(vim.o.columns * 0.4) -- Maximum of 40% of screen
         end,
       }
-
-      -- Replace vim.notify
-      vim.notify = notify
-
-      -- Utility function to throttle notifications
-      local notify_throttle = {}
-      local wrapped_notify = function(msg, level, opts)
-        opts = opts or {}
-        local hash = msg .. (opts.title or '')
-        local last_notify = notify_throttle[hash]
-        local current_time = vim.loop.now()
-
-        -- Throttle similar notifications to once per 10 seconds
-        if not last_notify or (current_time - last_notify) > 10000 then
-          notify_throttle[hash] = current_time
-          return notify(msg, level, opts)
-        end
-      end
-
-      -- Replace vim.notify with throttled version
-      vim.notify = wrapped_notify
+      vim.notify = require 'notify'
     end,
   },
 }

@@ -99,16 +99,12 @@ return {
       use_diagnostic_signs = true,
     },
     keys = {
-      -- Keeping your x prefix for diagnostic/trouble related commands
-      { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-      -- Keeping your c prefix for code-related actions
-      { '<leader>cs', '<cmd>TroubleToggle lsp_document_symbols<cr>', desc = 'Document Symbols (Trouble)' },
-      { '<leader>cS', '<cmd>TroubleToggle lsp_workspace_symbols<cr>', desc = 'Workspace Symbols (Trouble)' },
-      { '<leader>cl', '<cmd>TroubleToggle lsp_references<cr>', desc = 'LSP References (Trouble)' },
-      -- Location and quickfix lists
-      { '<leader>xL', '<cmd>TroubleToggle loclist<cr>', desc = 'Location List (Trouble)' },
-      { '<leader>xQ', '<cmd>TroubleToggle quickfix<cr>', desc = 'Quickfix List (Trouble)' },
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics (Trouble)' },
+      { '<leader>cs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+      { '<leader>cl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', desc = 'LSP Definitions / references / ... (Trouble)' },
+      { '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List (Trouble)' },
+      { '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List (Trouble)' },
     },
   },
   {
