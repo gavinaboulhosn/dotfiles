@@ -1,9 +1,21 @@
 local M = {}
 
+local group = vim.api.nvim_create_augroup('objc_garb', { clear = true })
+vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+  group = group,
+  -- Set filetype to objective-c for .h and .m files
+  pattern = { '*.h', '*.m' },
+  callback = function()
+    vim.bo.filetype = 'objective-c'
+  end,
+})
+
 M.on_attach = function(client, bufnr)
   local nmap = function(keys, func, desc)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
   end
+
+  local builtin = require 'telescope.builtin'
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -42,20 +54,32 @@ local servers = {
       },
     },
   },
-  tsserver = {},
   eslint = {
     settings = {
-      validate = 'on',
-      codeActionOnSave = { enable = false, mode = 'all' },
-      format = false,
-      quiet = false,
+      codeAction = {
+        disableRuleComment = {
+          enable = true,
+          location = 'separateLine',
+        },
+        showDocumentation = {
+          enable = true,
+        },
+      },
+      codeActionOnSave = {
+        enable = false,
+        mode = 'all',
+      },
+      format = true,
+      nodePath = '',
       onIgnoredFiles = 'off',
+      packageManager = 'npm',
+      quiet = false,
       rulesCustomizations = {},
       run = 'onType',
-      problems = { shortenToSingleLine = false },
-      codeAction = {
-        disableRuleComment = { enable = true, location = 'separateLine' },
-        showDocumentation = { enable = true },
+      useESLintClass = false,
+      validate = 'on',
+      workingDirectory = {
+        mode = 'location',
       },
     },
   },
@@ -69,22 +93,33 @@ local servers = {
       },
     },
   },
-  taplo = {
+  -- rust
+  rust_analyzer = {
     settings = {
-      taplo = {
-        evenBetterToml = {
-          schema = {
-            catalogs = {
-              'https://www.schemastore.org/api/json/catalog.json',
-            },
-            repositoryEnabled = true,
-            enabled = true,
-          },
-        },
+      ['rust-analyzer'] = {
+        checkOnSave = { command = 'clippy' },
+        cargo = { loadOutDirsFromCheck = true },
+        procMacro = { enable = true },
+        inlayHints = { chainingHints = true },
       },
     },
   },
   jsonls = {},
+  -- typescript
+  vtsls = {
+  settings = {
+    typescript = {
+      inlayHints = {
+        parameterNames = { enabled = "literals" },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
+        functionLikeReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
+      }
+    },
+  }
+},
 }
 
 M.setup = function()
@@ -113,15 +148,20 @@ M.setup = function()
     ensure_installed = {
       'stylua',
       'eslint_d',
-      'jdtls',
       'swiftlint',
     },
   }
 
   -- Set up sourcekit-lsp separately
   require('lspconfig').sourcekit.setup {
-    cmd = { 'xcrun', 'sourcekit-lsp' },
-    capabilities = capabilities,
+    cmd = { 'xcrun', 'sourcekit-lsp', '--log-level', 'info' },
+    capabilities = {
+      workspace = {
+        didChangeWatchedFiles = {
+          dynamicRegistration = true,
+        },
+      },
+    },
     on_attach = M.on_attach,
     root_dir = require('lspconfig.util').root_pattern('buildServer.json', 'Package.swift', '.git'),
   }

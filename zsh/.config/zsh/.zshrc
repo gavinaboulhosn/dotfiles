@@ -55,3 +55,4 @@ setopt INTERACTIVE_COMMENTS
 # Load custom functions
 autoload -U compinit && compinit
 eval "$(rbenv init -)"
+. "$HOME/.cargo/env"

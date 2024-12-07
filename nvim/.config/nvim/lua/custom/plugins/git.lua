@@ -15,7 +15,7 @@ return {
       current_line_blame = true,
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'right_align',
+        -- virt_text_pos = 'right_align',
         delay = 200, -- Faster blame display
         ignore_whitespace = true,
         virt_text_priority = 100,
@@ -36,6 +36,7 @@ return {
       attach_to_untracked = true,
       on_attach = function(bufnr)
         local gs = require 'gitsigns'
+        gs.setup()
 
         local function map(mode, l, r, desc)
           vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })

@@ -9,6 +9,7 @@ return {
       { 'j-hui/fidget.nvim', opts = {} }, -- LSP status UI
       { 'folke/neodev.nvim', opts = {} }, -- Improved Lua LSP for Neovim config
       'hrsh7th/cmp-nvim-lsp', -- LSP source for nvim-cmp
+      'simrat39/rust-tools.nvim',
     },
     config = function()
       require('custom.plugins.lsp.setup').setup()
@@ -19,35 +20,6 @@ return {
   require 'custom.plugins.lsp.copilot',
   require 'custom.plugins.lsp.completions',
   require 'custom.plugins.lsp.xcode',
-
-  -- TypeScript-specific tools
-  {
-    'pmizio/typescript-tools.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'neovim/nvim-lspconfig',
-      'oleggulevskyy/better-ts-errors.nvim', -- Enhanced TypeScript diagnostics
-      'MunifTanjim/nui.nvim', -- UI component library
-    },
-    opts = {
-      tsserver_file_preferences = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      },
-      expose_as_code_action = 'all', -- Show TypeScript tools as code actions
-      complete_function_calls = true, -- Enable function call completions
-    },
-    config = function(_, opts)
-      require('typescript-tools').setup(opts)
-      require('better-ts-errors').setup()
-    end,
-  },
 
   -- Java support
   {

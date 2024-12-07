@@ -53,25 +53,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Swift LSP setup
--- local swift_lsp = vim.api.nvim_create_augroup('swift_lsp', { clear = true })
--- vim.api.nvim_create_autocmd('FileType', {
---   pattern = { 'swift' },
---   callback = function()
---     local root_dir = vim.fs.dirname(vim.fs.find({
---       'Package.swift',
---       '.git',
---     }, { upward = true })[1])
---     local client = vim.lsp.start {
---       name = 'sourcekit-lsp',
---       cmd = { 'sourcekit-lsp' },
---       root_dir = root_dir,
---     }
---     vim.lsp.buf_attach_client(0, client)
---   end,
---   group = swift_lsp,
--- })
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -119,32 +100,12 @@ require('lazy').setup({
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
+      require('mini.sessions').setup()
       require('mini.align').setup()
       require('mini.pairs').setup()
 
       local statusline = require 'mini.statusline'
       statusline.setup { use_icons = vim.g.have_nerd_font }
-      statusline.section_location = function()
-        return '%2l:%-2v'
-      end
-    end,
-  },
-
-  -- Treesitter
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = ':TSUpdate',
-    opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = { 'ruby' },
-      },
-      indent = { enable = true, disable = { 'ruby' } },
-    },
-    config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
     end,
   },
 

@@ -43,12 +43,13 @@ on-focus-changed = ['move-mouse window-lazy-center']
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 0
-inner.vertical = 0
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+# inner.horizontal = 0
+# inner.vertical = 0
+# outer.left = 0
+# outer.bottom = 0
+# outer.top = 0
+# outer.right = 0
+
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -133,12 +134,12 @@ alt-shift-f = 'fullscreen'
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+# alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#mode
 alt-shift-semicolon = 'mode service'
 
-alt-shift-r = 'mode resize'
+alt-shift-tab = 'mode resize'
 [mode.resize.binding]
 h = 'resize width -50'
 j = 'resize height +50'
@@ -179,67 +180,9 @@ alt-shift-l = ['join-with right', 'mode main']
 
 # auto floats
 [[on-window-detected]]
-if.app-name-regex-substring = 'simulator'
+if.app-id = 'com.apple.CoreSimulator.CoreSimulatorService'
 run = 'layout floating'
 
-# terminal
 [[on-window-detected]]
-if.app-id = 'com.github.wez.wezterm'
-run = 'move-node-to-workspace T'
-
-# ide's
-[[on-window-detected]]
-if.app-id = 'com.apple.dt.Xcode'
-run = 'move-node-to-workspace I'
-
-[[on-window-detected]]
-if.app-id = 'com.jetbrains.intellij'
-run = 'move-node-to-workspace I'
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCodeInsiders'
-run = 'move-node-to-workspace I'
-
-# messaging apps
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace M'
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.Outlook'
-run = 'move-node-to-workspace M'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.MobileSMS'
-run = 'move-node-to-workspace M'
-
-# browsers
-[[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
-run = 'move-node-to-workspace B'
-
-[[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace B'
-
-[[on-window-detected]]
-if.app-id = 'org.mozilla.firefox'
-run = 'move-node-to-workspace B'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.Safari'
-run = 'move-node-to-workspace B'
-
-[workspace-to-monitor-force-assignment]
-T = ['lg', 'main']
-M = ['u28d590', 'samsung', 'main']
-B = ['lg', 'main']
-S = ['u28d590', 'samsung', 'main']
-I = ['lg', 'main']
-
-
-# 2 = 'main'                      # Main monitor
-# 3 = 'secondary'                 # Non-main monitor in case when there are only two monitors
-# 4 = 'built-in'                  # Case insensitive regex substring
-# 5 = '^built-in retina display$' # Case insensitive regex match
-# 6 = ['lg', 'dell']
+if.app-id = 'com.apple.Preview'
+run = 'layout floating'

@@ -7,8 +7,8 @@ opacity = 0.95
 dynamic_title = true
 
 [window.padding]
-x = 2
-y = 4
+x = 24
+y = 24
 
 [font]
 size = 14

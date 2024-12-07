@@ -12,6 +12,7 @@ return {
     'dmitmel/cmp-cmdline-history',
     'FelipeLema/cmp-async-path',
     'saadparwaiz1/cmp_luasnip',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
 
     -- Snippet engine and snippets
     {
@@ -102,9 +103,6 @@ return {
       sorting = {
         priority_weight = 2,
         comparators = {
-          cmp.config.compare.offset,
-          cmp.config.compare.exact,
-          cmp.config.compare.score,
           function(entry1, entry2)
             local kind_priority = {
               nvim_lsp = 1,
@@ -118,6 +116,9 @@ return {
             local kind2 = kind_priority[entry2.source.name] or 100
             return kind1 < kind2
           end,
+          cmp.config.compare.offset,
+          cmp.config.compare.exact,
+          cmp.config.compare.score,
           cmp.config.compare.kind,
           cmp.config.compare.sort_text,
           cmp.config.compare.length,
@@ -136,22 +137,21 @@ return {
       mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-p>'] = cmp.mapping.select_prev_item(),
+
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-y>'] = cmp.mapping.confirm { select = true },
+
         ['<C-Space>'] = cmp.mapping.complete {},
-        ['<C-l>'] = cmp.mapping(function(fallback)
-          if luasnip.expand_or_jumpable() then
+
+        ['<C-l>'] = cmp.mapping(function()
+          if luasnip.expand_or_locally_jumpable() then
             luasnip.expand_or_jump()
-          else
-            fallback()
           end
         end, { 'i', 's' }),
-        ['<C-h>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable(-1) then
+        ['<C-h>'] = cmp.mapping(function()
+          if luasnip.locally_jumpable(-1) then
             luasnip.jump(-1)
-          else
-            fallback()
           end
         end, { 'i', 's' }),
       },
@@ -161,7 +161,8 @@ return {
         { name = 'buffer', priority = 500 },
         { name = 'path', priority = 250 },
         { name = 'rg', priority = 200 },
-        { name = 'cmdline', priority = 100 },
+        { name = 'nvim_lsp_signature_help' },
+        -- { name = 'cmdline', priority = 100 },
       },
     }
 
@@ -169,9 +170,9 @@ return {
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources {
-        { name = 'path' },
-        { name = 'cmdline' },
         { name = 'cmdline_history' },
+        { name = 'cmdline' },
+        { name = 'path' },
       },
     })
 
@@ -180,6 +181,7 @@ return {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
         { name = 'nvim_lsp' },
+        { name = 'rg' },
         { name = 'buffer' },
         { name = 'cmdline_history' },
       },

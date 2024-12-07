@@ -6,9 +6,7 @@ return {
     'nvim-lua/plenary.nvim',
     { -- If encountering errors, see telescope-fzf-native README for install instructions
       'nvim-telescope/telescope-fzf-native.nvim',
-
       build = 'make',
-
       cond = function()
         return vim.fn.executable 'make' == 1
       end,

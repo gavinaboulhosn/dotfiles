@@ -8,3 +8,4 @@ mkdir -p $ZSH_CACHE_DIR
 
 # Set the location of the history file
 export HISTFILE=$ZSH_CACHE_DIR/.zsh_history
+. "$HOME/.cargo/env"

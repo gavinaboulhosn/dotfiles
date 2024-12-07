@@ -30,6 +30,7 @@ return {
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
       routes = {
+        -- hide the search count message
         {
           filter = {
             event = 'msg_show',
@@ -37,6 +38,7 @@ return {
           },
           opts = { skip = true },
         },
+        -- hide the written messages
         {
           filter = {
             event = 'msg_show',
@@ -130,20 +132,7 @@ return {
     lazy = false,
     config = function()
       require('notify').setup {
-        background_colour = '#000000',
-        fps = 60,
-        icons = {
-          DEBUG = '',
-          ERROR = '',
-          INFO = '',
-          TRACE = '✎',
-          WARN = '',
-        },
-        -- level = vim.log.levels.ERROR, -- Only show errors by default
-        minimum_width = 50,
-        render = 'minimal', -- Use minimal render style
-        stages = 'fade', -- Less fancy animation
-        timeout = 3000, -- Shorter timeout (3 seconds)
+        render = 'compact',
         top_down = false, -- Show at bottom
         max_height = function()
           return math.floor(vim.o.lines * 0.25) -- Maximum of 25% of screen
